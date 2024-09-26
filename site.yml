@@ -1,0 +1,11 @@
+---
+- name: Test playbook for zilux.satellite
+  hosts: localhost
+  gather_facts: false
+  become: false
+
+  tasks:
+
+    - name: Run role from zilux.satellite
+      ansible.builtin.include_role:
+        name: zilux.satellite.dummy_role
