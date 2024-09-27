@@ -1,25 +1,29 @@
 ---
 - name: Test playbook for zilux.satellite
-  hosts: "{{ host | default(ommit) }}"
+  hosts: "{{ env | default(omit) }}"
   gather_facts: false
   become: false
   vars_files:
+    - vars/common.yml
     - vars/{{ env }}.yml
-    #- vars/{{ env }}_secrets.yml
+    - vars/{{ env }}_secrets.yml
 
   tasks:
-
-    - debug: var=secret
 
     - name: Block to do all with localhost
       delegate_to: localhost
       block:
- 
-      - name: Show env
-        ansible.builtin.debug:
-          msg: "Environment: {{ env }} - {{ secret }} {{ common }} {{ locations }} {{ capsules }}"
 
-      - name: Run role from zilux.satellite
-        ansible.builtin.import_role:
-          name: zilux.satellite.dummy_role
-        when: env == 'prod'
+        - name: Show env
+          ansible.builtin.debug:
+            msg:
+              - 'Environment: {{ env }}'
+              - 'Secret: {{ secret }}'
+              - 'Common: {{ common }}'
+              - 'Locations: {{ locations }}'
+              - 'Capsules: {{ capsules }}'
+
+        - name: Run role from zilux.satellite
+          ansible.builtin.import_role:
+            name: zilux.satellite.dummy_role
+          when: env == 'prod'
