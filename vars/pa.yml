@@ -1,0 +1,7 @@
+locations:
+  - amsterdam
+  - rotterdam
+
+capsules:
+  - cap_a
+  - cap_b
