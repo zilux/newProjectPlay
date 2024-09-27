@@ -2,17 +2,24 @@ Met dit voorbeeld gebruiken we een group waarmee we ook een var_file insourcen.
 
 Zie ook newProjectCollection  met molecule zonder fouten
 
+
+
+
+
 ```mermaid
 mindmap
-  root((satgitops))
+  root((anja)
     content
       Long history
       ::icon(fa fa-smile)
       Popularisation
         British popular psychology author Tony Buzan
-    config
-      On effectiveness<br/>and features
-      On Automatic creation
+    kinderen
+      Denise
+      Ferry
+        Kleinkinderen
+          Djalysa
+          Djylano
         Uses
             Creative techniques
             Strategic planning
