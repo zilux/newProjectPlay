@@ -3,12 +3,10 @@
   hosts: "{{ env | default(omit) }}"
   gather_facts: false
   become: false
-  vars:
-    source_env: '{{ env }}'
   vars_files:
     - vars/common.yml
-    - vars/{{ env.split('_')[1] }}.yml
-    - vars/{{ env.split('_')[1] }}_secrets.yml
+    - vars/{{ env.split('_') | last }}.yml
+    - vars/{{ env.split('_') | last }}_secrets.yml
 
   tasks:
 
