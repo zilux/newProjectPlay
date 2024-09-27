@@ -5,8 +5,8 @@
   become: false
   vars_files:
     - vars/common.yml
+    - vars/secrets.yml
     - vars/{{ env.split('_') | last }}.yml
-    - vars/{{ env.split('_') | last }}_secrets.yml
 
   tasks:
 
@@ -17,13 +17,13 @@
         - name: Show env
           ansible.builtin.debug:
             msg:
-              - 'Environment: {{ env }}'
-              - 'Secret: {{ secret }}'
-              - 'Common: {{ common }}'
-              - 'Locations: {{ locations }}'
-              - 'Capsules: {{ capsules }}'
+              - "Environment: {{ env | default('not_set') }}"
+              - "Secret: {{ secret | default('not_set') }}"
+              - "Common: {{ common | default('not_set') }}"
+              - "Locations: {{ locations | default('not_set') }}"
+              - "Capsules: {{ capsules  | default('not_set') }}"
 
         - name: Run role from zilux.satellite
           ansible.builtin.import_role:
             name: zilux.satellite.dummy_role
-          when: env == 'prod'
+          when: env in ['prod', 'pa'] 

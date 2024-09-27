@@ -1,15 +1,8 @@
-localhost
-
 [prod]
 sat_prod
 
-[prod:vars]
-
 [pa]
 sat_pa
-
-[pa:vars]
-
 
 [capsules_prod]
 cap_prod1
@@ -19,6 +12,8 @@ cap_prod2
 cap_pa1
 cap_pa2
 
+# need the env= vars for capsules !
+#
 [capsules_prod:vars]
 env=prod
 
