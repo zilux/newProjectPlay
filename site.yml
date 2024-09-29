@@ -11,6 +11,11 @@
 
   tasks:
 
+    - name: Assert env is set
+      ansible.builtin.assert:
+        that: env is defined
+        fail_msg: Droeftoeter! env is not defined 
+
     - name: Block to do all with localhost
       delegate_to: localhost
       block:
