@@ -1,6 +1,6 @@
 ---
 - name: Test playbook for zilux.satellite
-  hosts: "{{ env | 'localhost' }}"
+  hosts: "{{ env | default('localhost') }}"
   # hosts: "{{ env | default(omit) }}"
   gather_facts: false
   become: false
