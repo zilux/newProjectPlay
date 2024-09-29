@@ -1,0 +1,37 @@
+---
+- name: Test playbook for zilux.satellite
+  hosts: "{{ env | default('localhost') }}"
+  # hosts: "{{ env | default(omit) }}"
+  gather_facts: false
+  become: false
+  vars_files:
+    - vars/common.yml
+    - vars/secrets.yml
+    - vars/{{ env.split('_') | last }}.yml
+
+  tasks:
+
+    - name: Assert env is set
+      ansible.builtin.assert:
+        that: 
+          - env is defined
+          - "'capsules' is in env" 
+        fail_msg: Droeftoeter! env is not defined 
+
+    - name: Block to do all with localhost
+      delegate_to: localhost
+      block:
+
+        - name: Show env
+          ansible.builtin.debug:
+            msg:
+              - "Environment: {{ env | default('not_set') }}"
+              - "Secret: {{ secret | default('not_set') }}"
+              - "Common: {{ common | default('not_set') }}"
+              - "Locations: {{ locations | default('not_set') }}"
+              - "Capsules: {{ capsules  | default('not_set') }}"
+
+        - name: Run role from zilux.satellite
+          ansible.builtin.import_role:
+            name: zilux.satellite.dummy_role
+          when: env in ['prod', 'pa'] 
